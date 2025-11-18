@@ -13,7 +13,7 @@ def check_safety(path: str) -> pathlib.Path:
 @tool
 def write_file(path: str, content: str) -> str:
     """
-    Write content to specified file path within project root.
+    write content to specified file path within project root.
     """
     path = check_safety(path)
     path.parent.mkdir(parents=True, exist_ok=True)
@@ -24,7 +24,7 @@ def write_file(path: str, content: str) -> str:
 @tool
 def read_file(path: str) -> str:
     """
-    Read content from specified file path within project root.
+    read content from specified file path within project root.
     """
     path = check_safety(path)
     if not path.exists():
@@ -35,14 +35,14 @@ def read_file(path: str) -> str:
 @tool
 def get_cwd() -> str:
     """
-    Get current working directory.
+    get current working directory.
     """
     return str(ROOT)
 
 @tool
 def ls_files(directory: str = ".") -> str:
     """
-    List files in specified directory.
+    list files in specified directory.
     """
     path = check_safety(directory)
     if not path.is_dir():
@@ -54,7 +54,7 @@ def ls_files(directory: str = ".") -> str:
 @tool
 def run_cmd(cmd: str, cwd: str = None, timeout: int = 25) -> Tuple[int, str, str]:
     """
-    Run given command in specified directory.
+    run given command in specified directory.
     """
     cwd_dir = check_safety(cwd) if cwd else ROOT
     res = subprocess.run(
@@ -65,7 +65,7 @@ def run_cmd(cmd: str, cwd: str = None, timeout: int = 25) -> Tuple[int, str, str
 @tool
 def list_tools():
     """
-    List all available tools.
+    list all available tools.
     """
     return "write_file, read_file, get_cwd, ls_files, run_cmd"
 

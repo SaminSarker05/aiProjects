@@ -34,10 +34,16 @@ def read_file(path: str) -> str:
 
 @tool
 def get_cwd() -> str:
+    """
+    Get current working directory.
+    """
     return str(ROOT)
 
 @tool
 def ls_files(directory: str = ".") -> str:
+    """
+    List files in specified directory.
+    """
     path = check_safety(directory)
     if not path.is_dir():
         return "Not a directory."
@@ -47,11 +53,21 @@ def ls_files(directory: str = ".") -> str:
 
 @tool
 def run_cmd(cmd: str, cwd: str = None, timeout: int = 25) -> Tuple[int, str, str]:
+    """
+    Run given command in specified directory.
+    """
     cwd_dir = check_safety(cwd) if cwd else ROOT
     res = subprocess.run(
         cmd, shell=True, capture_output=True, cwd=str(cwd_dir), timeout=timeout, text=True
     )
     return res.returncode, res.stdout, res.stderr
+
+@tool
+def list_tools():
+    """
+    List all available tools.
+    """
+    return "write_file, read_file, get_cwd, ls_files, run_cmd"
 
 def init_root():
     ROOT.mkdir(parents=True, exist_ok=True)

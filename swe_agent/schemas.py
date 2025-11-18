@@ -1,4 +1,5 @@
 from pydantic import BaseModel, Field, ConfigDict
+from typing import Literal, TypedDict, Optional
 
 class FileSchema(BaseModel):
     path: str = Field(description="Location and path of file to create or modify.")
@@ -27,3 +28,16 @@ class TaskSchema(BaseModel):
 class ArchitectSchema(BaseModel):
     tasks: list[TaskSchema] = Field(description="List of tasks to perform during the build process.")
     # model_config = ConfigDict(extra="allow")  # allow extra fields to be later added
+
+class CoderState(TypedDict):
+    architect: ArchitectSchema = Field(description="List of implementation tasks to perform during the build process.")
+    curr_task_ind: int = Field(0, description="Index of current task being worked on.")
+    curr_file_content: Optional[str] = Field(None, description="Current file content being worked on.")
+
+class AgentState(TypedDict):
+    user_prompt: str
+    plan: PlanSchema
+    architect: ArchitectSchema
+    coder_state: Optional[CoderState]
+    status: Literal["DONE", "IN_PROGRESS", "ERROR"]
+    

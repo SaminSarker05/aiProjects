@@ -25,11 +25,15 @@ def architect_agent_prompt(plan: str) -> str:
     """
     return architect_prompt
 
-def coder_agent_prompt(task: str) -> str:
+def coder_agent_prompt() -> str:
     coder_prompt = f"""
-    You are a software engineer and Coder agent. Use the task description to IMPLEMENT the 
-    code for a specific task.
+    You are a software engineer and Coder agent. You are IMPLEMENTING a specifc task.
     
-    Given Task: {task}
+    You have access to tools to read and write files.
+        - Get a list of all available tools.
+        - Review all exising files in the project.
+        - Implement full content of the task, integrating with other modules.
+        - maintain naming consistency.
+        - if module imported, ensure it exists and is implemented.
     """
     return coder_prompt

@@ -5,6 +5,9 @@ description = "Add your description here"
 readme = "README.md"
 requires-python = ">=3.11"
 dependencies = [
+    "alpaca-py>=0.43.2",
+    "fastmcp>=2.13.1",
     "mcp[cli]>=1.21.2",
+    "python-dotenv>=1.2.1",
     "yfinance>=0.2.66",
 ]

@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simple Todo App - Accessible and Semantic</title>
+  <meta name="description" content="A minimal accessible Todo app demonstrating semantic HTML, ARIA roles, and data attributes for robust event delegation." />
+  <link rel="icon" href="favicon.ico" type="image/x-icon" />
+  <!-- Styles can be added in a separate CSS file later -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <header>
+    <h1>Simple Todo App</h1>
+    <p class="visually-hidden" aria-label="Accessible Todo app description">A minimal, accessible Todo application</p>
+  </header>
+  <main>
+    <div id="todo-app" class="todo-app" role="application" aria-label="Simple Todo App">
+      <!-- Form to add new todos -->
+      <form id="todo-form" autocomplete="off" aria-label="Add todo form" class="todo-form">
+        <label for="todo-input" class="visually-hidden">Todo</label>
+        <input id="todo-input" data-id="todo-input" type="text" placeholder="What needs to be done?" required />
+        <button type="submit" data-id="add-todo" aria-label="Add todo">Add</button>
+      </form>
+
+      <!-- Live count of remaining items for accessibility -->
+      <div id="todo-count" class="todo-count" aria-live="polite" aria-atomic="true" aria-label="Items left">0 items left</div>
+
+      <!-- List of todo items -->
+      <ul id="todo-list" class="todo-list" aria-label="Todo items" data-id="todo-list"></ul>
+
+      <!-- Control bar: filter buttons and clear completed -->
+      <section class="todo-controls" aria-label="Filters and actions" role="region">
+        <div class="filter-group" role="group" aria-label="Filter todos">
+          <button class="filter-btn active" data-filter="all" aria-pressed="true" data-id="filter-all">All</button>
+          <button class="filter-btn" data-filter="active" aria-pressed="false" data-id="filter-active">Active</button>
+          <button class="filter-btn" data-filter="completed" aria-pressed="false" data-id="filter-completed">Completed</button>
+        </div>
+        <button id="clear-completed" data-id="clear-completed" type="button" aria-label="Clear completed todos">Clear completed</button>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p class="footer-note">Footer placeholder for accessibility metadata and links.</p>
+  </footer>
+
+  <script type="module" src="main.js"></script>
+</body>
+</html>

@@ -1,0 +1,349 @@
+/* Base styling and CSS reset
+   Task 3: Provide a clean baseline with CSS variables, a minimal reset, and surfaces
+   for a consistent appearance across browsers.
+*/
+
+/*--------------------------------------------------------------
+  Design tokens and typography
+  - Define color variables for background, surface, text, and accents
+  - Global font stack with smoothing for a neutral look
+  - Card-like surfaces with gentle shadows and radii
+--------------------------------------------------------------*/
+:root {
+  /* Colors */
+  --bg: #f7f7fb;            /* page background */
+  --surface: #ffffff;        /* card surface */
+  --text: #1f2937;           /* primary text */
+  --muted: #6b7280;          /* secondary text */
+  --accent: #4caf50;         /* accent color (green) */
+  --border: #e5e7eb;         /* borders */
+
+  /* Surface and radius helpers */
+  --shadow: 0 1px 2px rgba(0,0,0,0.06), 0 1px 6px rgba(0,0,0,0.04);
+  --radius: 12px;              /* default card radius */
+  --radius-sm: 8px;
+
+  /* Layout constraints */
+  --max-width: 960px;
+
+  /* Typography */
+  --font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+               Arial, "Noto Sans", "Liberation Sans", sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+/*--------------------------------------------------------------
+  Fluid/Responsive typography to scale with viewport for better readability on mobile and desktop
+--------------------------------------------------------------*/
+html {
+  font-size: clamp(14px, calc(1vw + 8px), 18px);
+}
+
+/*--------------------------------------------------------------
+  Minimal CSS reset and baseline
+--------------------------------------------------------------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+html, body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-sans);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  line-height: 1.5;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+img {
+  max-width: 100%;
+  display: block;
+}
+
+/*--------------------------------------------------------------
+  App layout primitives
+  - .app centers content and provides padding around the page
+  - .container provides a max width and horizontal centering
+  - .card implements a neutral surface with subtle elevation
+--------------------------------------------------------------*/
+.app {
+  min-height: 100%;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--max-width);
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: 1rem;
+}
+
+/*--------------------------------------------------------------
+  Typographic defaults
+--------------------------------------------------------------*/
+h1, h2, h3, h4, h5, h6 {
+  margin: 0 0 0.5rem 0;
+  font-weight: 600;
+  color: var(--text);
+}
+p {
+  margin: 0 0 0.75rem 0;
+}
+ul {
+  margin: 0 0 0.75rem 1.25rem;
+}
+
+/* Utility helpers */
+.text-muted {
+  color: var(--muted);
+}
+.text-accent {
+  color: var(--accent);
+}
+
+/*--------------------------------------------------------------
+  Accessibility: focus outlines
+--------------------------------------------------------------*/
+:focus {
+  outline: none;
+}
+:focus-visible {
+  outline: 2px solid #2563eb; /* blue-600 */
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Respect users who prefer reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/*--------------------------------------------------------------
+  Todo list styling (Task 4: item styling and states)
+--------------------------------------------------------------*/
+/* Todo app scaffolding */
+.todo-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+/* Todo item container with grid layout: checkbox, text, actions */
+.todo-item {
+  display: grid;
+  grid-template-columns: 1.25em 1fr auto;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.5rem 0.75rem;
+  border-bottom: 1px solid var(--border);
+  background: #fff;
+  transition: background-color 0.2s ease;
+}
+.todo-item:last-child {
+  border-bottom: none;
+}
+
+/* Hover affordance */
+.todo-item:hover {
+  background: #f8f9fb;
+}
+
+/* Completed state styling */
+.todo-item.completed .todo-text {
+  text-decoration: line-through;
+  color: var(--muted);
+}
+
+/* Inline editing state */
+.todo-item.edit-mode {
+  background: #fff9e0;
+}
+.todo-item.edit-mode .todo-text {
+  display: none;
+}
+.todo-item.edit-mode .todo-edit {
+  display: inline-block;
+}
+
+/* Text content */
+.todo-text {
+  font-size: 1rem;
+  align-self: center;
+}
+
+/* Inline edit input */
+.todo-edit {
+  display: none;
+  width: 100%;
+  font: inherit;
+  padding: 0.25rem 0.5rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+}
+
+/* Actions column */
+.todo-actions {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: end;
+}
+
+.todo-actions .edit-btn,
+.todo-actions .delete-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 0.25rem 0.5rem;
+  cursor: pointer;
+}
+.todo-actions .edit-btn:hover,
+.todo-actions .delete-btn:hover {
+  background: #f3f4f6;
+}
+
+.todo-item .edit-btn:focus-visible,
+.todo-item .delete-btn:focus-visible,
+.todo-item .todo-checkbox:focus-visible {
+  outline: 2px solid #2563eb;
+  outline-offset: 2px;
+}
+
+/* Todo form (add) */
+.todo-form {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+.todo-form input[type="text"] {
+  flex: 1 1 auto;
+  padding: 0.5rem 0.75rem;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: #fff;
+}
+.todo-form button {
+  padding: 0.5rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  cursor: pointer;
+}
+.todo-form button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Controls under the list: filters and clear action */
+.todo-controls {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 0.5rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid var(--border);
+}
+.filter-group {
+  display: inline-flex;
+  gap: 0.5rem;
+}
+
+.filter-btn {
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+}
+.filter-btn.active {
+  background: var(--surface);
+  outline: none;
+  font-weight: 600;
+}
+
+#clear-completed {
+  padding: 0.4rem 0.6rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: #fff;
+  cursor: pointer;
+}
+#clear-completed:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+/* Visually-hidden helper (to provide screen-reader text without layout impact) */
+.visually-hidden {
+  position: absolute !important;
+  height: 1px; width: 1px;
+  overflow: hidden; clip: rect(1px, 1px, 1px, 1px);
+  white-space: nowrap; border: 0; padding: 0; margin: -1px;
+}
+
+/*--------------------------------------------------------------
+  Responsive design adjustments for mobile viewports
+--------------------------------------------------------------*/
+@media (max-width: 600px) {
+  /* App chrome adjustments */
+  .app {
+    padding: 1rem 0.75rem;
+  }
+  .container {
+    padding: 0.75rem;
+  }
+  .card {
+    padding: 0.75rem;
+    border-radius: 10px;
+  }
+  /* Todo layout tweaks for narrow viewports */
+  .todo-item {
+    grid-template-columns: 1.25em 1fr;
+    padding: 0.5rem 0.5rem;
+  }
+  .todo-actions {
+    justify-content: space-between;
+    margin-top: 0.25rem;
+  }
+  .todo-text {
+    font-size: 0.95rem;
+    line-height: 1.4;
+  }
+  .todo-form input[type="text"] {
+    padding: 0.5rem 0.6rem;
+    font-size: 0.95rem;
+  }
+  .todo-form button,
+  #clear-completed,
+  .filter-btn,
+  .todo-actions .edit-btn,
+  .todo-actions .delete-btn {
+    min-height: 38px;
+  }
+}

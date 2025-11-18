@@ -1,10 +1,16 @@
 """
-Langchain/LangGraph MultiAgent coding assistant using openai GPT-4.
+Langchain/LangGraph MultiAgent coding assistant using openAI GPT-4.
+
+Stategraph used to orchestrate agent actions and a list of file system
+tools for direct code manipulation.
 
 to use:
     define a .env file with OPENAI_API_KEY
     run uv sync
     run uv run main.py
+    * to make faster change model
+
+example code generation under monkey-generated-code directory.
 """
 
 from dotenv import load_dotenv
@@ -19,6 +25,7 @@ from langchain_openai import ChatOpenAI
 load_dotenv()
 
 # low temperature for consistent results
+llm = ChatOpenAI(model='gpt-4-nano-2022-04-01', temperature=0.1)
 llm = ChatOpenAI(model='gpt-5-nano-2025-08-07', temperature=0.1)
 
 def planner_monkey(state: AgentState) -> AgentState:

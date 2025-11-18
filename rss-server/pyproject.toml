@@ -1,0 +1,11 @@
+[project]
+name = "mcp-server"
+version = "0.1.0"
+description = "An MCP server that fetches and searches RSS feeds from Google Blog Search and Google Cloud YouTube channels."
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "feedparser>=6.0.12",
+    "mcp[cli]>=1.21.0",
+    "python-dateutil>=2.9.0.post0",
+]

@@ -8,7 +8,6 @@ Deployed on FastMCP Cloud Platform. [Need to Fix]
 https://rss-crimson-condor.fastmcp.app/mcp
 """
 
-
 from mcp.server.fastmcp import FastMCP  # import official python SDK
 import feedparser
 import logging

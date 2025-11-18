@@ -1,3 +1,10 @@
+"""
+MCP server integrated with alpaca trading API and
+yfinance for auomated trade executions on paper trade
+account.
+
+"""
+
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from alpaca.trading.client import TradingClient

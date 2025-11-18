@@ -19,8 +19,17 @@ def architect_agent_prompt(plan: str) -> str:
         - Include integration details such as imports, function parameters, etc.
         
     Order the tasks by priority and dependency.
-    Each step should be independent and self contained. Do not repeat work.
+    Each step should be INDEPENDENT AND SELF-CONTAINED. Do not repeat work.
 
     Given Project Plan: {plan}
     """
     return architect_prompt
+
+def coder_agent_prompt(task: str) -> str:
+    coder_prompt = f"""
+    You are a software engineer and Coder agent. Use the task description to IMPLEMENT the 
+    code for a specific task.
+    
+    Given Task: {task}
+    """
+    return coder_prompt

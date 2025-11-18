@@ -3,6 +3,9 @@ MCP server integrated with alpaca trading API and
 yfinance for auomated trade executions on paper trade
 account.
 
+example queries:
+    - what are all my positions and order history?
+    - buy 2 AAPL at market price
 """
 
 from mcp.server.fastmcp import FastMCP
@@ -35,9 +38,10 @@ def get_all_positions() -> str:
     portfolio = trading_client.get_all_positions()
     positions = "All positions:\n"
     for position in portfolio:
-        positions += f"{position.symbol}: {position.qty}, {position.cost}, {position.market_value}\n"
+        positions += f"{position.symbol}: {position.qty}, {position.unrealized_pl}, {position.market_value}\n"
     return positions
         
+# currently only supports market orders
 @mcp.tool()
 def market_buy_order(symbol: str, quantity: int) -> str:
     """

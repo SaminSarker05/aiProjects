@@ -35,7 +35,7 @@ def get_all_positions() -> str:
     portfolio = trading_client.get_all_positions()
     positions = ""
     for position in portfolio:
-        positions += f"{position.symbol}: {position.quantity}\n"
+        positions += f"{position.symbol}: {position.qty}\n"
     return positions
         
 @mcp.tool()
@@ -135,11 +135,11 @@ def get_order_history(limit: int=20) -> str:
     returns: str, formatted order history
     """
     try:
-        orders = trading_client.get_orders(limit=limit)
+        orders = trading_client.get_orders()
         if not orders:
             return "No orders were found."
         record = "orders: "
-        for order in orders:
+        for order in orders[:limit]:
             record += f"\n{order}"
         return record
     except Exception as e:

@@ -8,8 +8,8 @@ account.
 from mcp.server.fastmcp import FastMCP
 from dotenv import load_dotenv
 from alpaca.trading.client import TradingClient
-from alpaca.trading.requests import MarketOrderRequest
-from alpaca.trading.enums import OrderSide, TimeInForce
+from alpaca.trading.requests import MarketOrderRequest, GetOrdersRequest
+from alpaca.trading.enums import OrderSide, TimeInForce, QueryOrderStatus
 import yfinance as yf
 import os
 import requests
@@ -33,9 +33,9 @@ def get_all_positions() -> str:
     returns: str, all positions in the account
     """
     portfolio = trading_client.get_all_positions()
-    positions = ""
+    positions = "All positions:\n"
     for position in portfolio:
-        positions += f"{position.symbol}: {position.qty}\n"
+        positions += f"{position.symbol}: {position.qty}, {position.cost}, {position.market_value}\n"
     return positions
         
 @mcp.tool()
@@ -127,7 +127,7 @@ def get_account_balance() -> str:
         return f"Error retrieving account balance: {str(e)}"
 
 @mcp.tool()
-def get_order_history(limit: int=20) -> str:
+def get_order_history(limit: int=10) -> str:
     """
     Get order history from paper trading account.
     args:
@@ -135,7 +135,11 @@ def get_order_history(limit: int=20) -> str:
     returns: str, formatted order history
     """
     try:
-        orders = trading_client.get_orders()
+        filter = GetOrdersRequest(
+            status=QueryOrderStatus.ALL,
+            limit=limit
+        )
+        orders = trading_client.get_orders(filter=filter)
         if not orders:
             return "No orders were found."
         record = "orders: "

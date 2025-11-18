@@ -863,6 +863,7 @@ dependencies = [
     { name = "dotenv" },
     { name = "langchain" },
     { name = "langchain-openai" },
+    { name = "langgraph" },
 ]
 
 [package.metadata]
@@ -870,6 +871,7 @@ requires-dist = [
     { name = "dotenv", specifier = ">=0.9.9" },
     { name = "langchain", specifier = ">=1.0.7" },
     { name = "langchain-openai", specifier = ">=1.0.3" },
+    { name = "langgraph", specifier = ">=1.0.3" },
 ]
 
 [[package]]

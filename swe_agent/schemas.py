@@ -1,5 +1,4 @@
-
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 
 class FileSchema(BaseModel):
     path: str = Field(description="Location and path of file to create or modify.")
@@ -12,4 +11,19 @@ class PlanSchema(BaseModel):
     features: list[str] = Field(description="List of features that will be included in the application.")
     files: list[FileSchema] = Field(description="List of files to create or modify during the build process.")
     
+    def __str__(self):
+        return f"""
+            name: {self.name}
+            description: {self.description}
+            tech Stack: {self.tech_stack}
+            features: {self.features}
+            files: {self.files}
+        """
     
+class TaskSchema(BaseModel):
+    path: str = Field(description="The path of file to modify.")
+    task_description: str = Field(description="Detailed description of the task to perform on the file.")
+    
+class ArchitectSchema(BaseModel):
+    tasks: list[TaskSchema] = Field(description="List of tasks to perform during the build process.")
+    # model_config = ConfigDict(extra="allow")  # allow extra fields to be later added

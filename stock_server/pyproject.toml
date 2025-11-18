@@ -1,0 +1,10 @@
+[project]
+name = "stock-server"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.11"
+dependencies = [
+    "mcp[cli]>=1.21.2",
+    "yfinance>=0.2.66",
+]

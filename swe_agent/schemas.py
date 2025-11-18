@@ -29,7 +29,7 @@ class ArchitectSchema(BaseModel):
     tasks: list[TaskSchema] = Field(description="List of tasks to perform during the build process.")
     # model_config = ConfigDict(extra="allow")  # allow extra fields to be later added
 
-class CoderState(TypedDict):
+class CoderState(BaseModel):
     architect: ArchitectSchema = Field(description="List of implementation tasks to perform during the build process.")
     curr_task_ind: int = Field(0, description="Index of current task being worked on.")
     curr_file_content: Optional[str] = Field(None, description="Current file content being worked on.")

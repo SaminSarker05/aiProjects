@@ -49,27 +49,28 @@ def code_monkey_agent(state: AgentState) -> AgentState:
     system_prompt = coder_agent_prompt()
     
     monkey_tools = [read_file, write_file, ls_files, get_cwd]
-    swe_agent = create_react_agent(model=llm,  tools=monkey_tools)
-    swe_agent.invoke({"messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt} ]})
+    agent = create_react_agent(model=llm,  tools=monkey_tools)
+    agent.invoke({"messages": [{"role": "system", "content": system_prompt}, {"role": "user", "content": user_prompt} ]})
     
     coder_state.curr_task_ind += 1
     return {"coder_state": coder_state, "status": "IN_PROGRESS"}
 
+graph = StateGraph(AgentState)
+graph.add_node("plan_monkey", planner_agent)
+graph.add_node("architect_monkey", architect_agent)
+graph.add_node("code_monkey", code_monkey_agent)
+
+graph.set_entry_point("plan_monkey")
+graph.add_edge("plan_monkey", "architect_monkey")
+graph.add_edge("architect_monkey", "code_monkey")
+graph.add_conditional_edges(
+    "code_monkey",
+    lambda state: "END" if state.get("status") == "DONE" else "code_monkey",
+    {"END": END, "code_monkey": "code_monkey"}
+)
+
+swe_agent = graph.compile()
+
 if __name__ == "__main__":
-    graph = StateGraph(AgentState)
-    graph.add_node("plan_monkey", planner_agent)
-    graph.add_node("architect_monkey", architect_agent)
-    graph.add_node("code_monkey", code_monkey_agent)
-    
-    graph.set_entry_point("plan_monkey")
-    graph.add_edge("plan_monkey", "architect_monkey")
-    graph.add_edge("architect_monkey", "code_monkey")
-    graph.add_conditional_edges(
-        "code_monkey",
-        lambda state: "END" if state.get("status") == "DONE" else "code_monkey",
-        {"END": END, "code_monkey": "code_monkey"}
-    )
-    
-    swe_agent = graph.compile()
-    user_prompt = "Create a simple tic tac toe web application."
-    res = swe_agent.invoke({"user_prompt": user_prompt})
+    user_prompt = input("what do you want to build?: ")
+    res = swe_agent.invoke({"user_prompt": user_prompt}, recursion_limit=100)

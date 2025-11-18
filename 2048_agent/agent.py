@@ -15,7 +15,7 @@ class ComputerAI(BaseAI):
         """ Returns a randomly selected cell if possible """
         cells = grid.getAvailableCells()
         return random.choice(cells) if cells else None
-``
+
 class IntelligentAgent():    
     def __init__(self):
         self.search_depth     = 3

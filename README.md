@@ -51,6 +51,12 @@ Features: Efficient pruning, early failure detection, constraint propagation
 Approach: CSP with domain reduction for unassigned variables
 
 
+### anomaly/
+Classify telescope registration particles as gamma or hadron
+
+### gamma/
+Detect anomalies in cpu usage on an AWS EC2 instance
+
 ## Note
 
 Each project is self-contained.

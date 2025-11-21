@@ -9,6 +9,7 @@ Features: 3-level search depth, adversarial modeling, multiple weighted heuristi
 Heuristics: Open cells, max tile value, monotonicity, smoothness, edge tiles, snake pattern
 Performance: Consistently achieves 1024 and 2048 tiles
 
+
 ### monkey_agent/
 Multi-agent coding assistant using LangChain/LangGraph and OpenAI GPT-4 for automated code generation.
 
@@ -35,11 +36,11 @@ Features: Position tracking, market orders (buy/sell), stock prices, account bal
 Trading: Paper trading account only
 Resources: Stock price lookup with stock://{symbol} URI
 
-
 Example queries:
 - "what are all my positions and order history?"
 - "buy 2 AAPL at market price"
 - "get current price of TSLA"
+
 
 ### sudoku/
 Sudoku solver modeled as a constraint satisfaction problem with backtracking.
@@ -48,6 +49,7 @@ Tech: Python
 Algorithm: Backtracking with Minimum Remaining Values (MRV) heuristic and forward checking
 Features: Efficient pruning, early failure detection, constraint propagation
 Approach: CSP with domain reduction for unassigned variables
+
 
 ## Note
 
